@@ -1,0 +1,257 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); }
+  .page { padding: 1rem 0; }
+  .header { background: #1A5C38; border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 12px; }
+  .header h1 { color: #E8A82E; font-size: 20px; font-weight: 500; }
+  .steps-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1rem; }
+  .step-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 0.75rem 1rem; }
+  .step-label { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .step-num { background: #1A5C38; color: #fff; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; flex-shrink: 0; }
+  .step-title { font-size: 14px; font-weight: 500; color: #1A5C38; }
+  input[type=text], textarea, select { width: 100%; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 7px 10px; font-size: 14px; font-family: var(--font-sans); background: var(--color-background-secondary); color: var(--color-text-primary); resize: none; }
+  input[type=text]:focus, textarea:focus, select:focus { outline: none; border-color: #1A5C38; }
+  .bottom-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1rem; }
+  .pyramid-section { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 0.75rem 1rem; }
+  .section-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .pyramid-wrap { display: flex; flex-direction: column; align-items: center; gap: 3px; margin-bottom: 10px; }
+  .tier { border-radius: 4px; display: flex; align-items: center; justify-content: center; padding: 6px 8px; transition: opacity 0.15s; }
+  .tier-inner { display: flex; align-items: center; gap: 6px; width: 100%; }
+  .tier-emoji { font-size: 16px; flex-shrink: 0; }
+  .tier-input { background: transparent; border: none; border-bottom: 1px dashed rgba(255,255,255,0.6); color: #fff; font-size: 12px; flex: 1; padding: 0 2px; outline: none; font-family: var(--font-sans); }
+  .tier-input::placeholder { color: rgba(255,255,255,0.55); }
+  .freq-select { font-size: 11px; background: rgba(0,0,0,0.18); color: #fff; border: none; border-radius: 3px; padding: 1px 3px; cursor: pointer; font-family: var(--font-sans); }
+  .freq-select option { background: #333; color: #fff; }
+  .points-section { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 0.75rem 1rem; }
+  .points-col { margin-bottom: 10px; }
+  .points-header { padding: 6px 10px; border-radius: var(--border-radius-md); font-size: 13px; font-weight: 500; color: #fff; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .good-hdr { background: #1A7F4B; }
+  .bad-hdr { background: #C0392B; }
+  .point-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .point-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .good-dot { background: #1A7F4B; }
+  .bad-dot { background: #C0392B; }
+  .ingredients-wrap { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .ingredient-chip { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: 20px; padding: 4px 10px; font-size: 13px; color: var(--color-text-primary); display: flex; align-items: center; gap: 4px; }
+  .chip-remove { cursor: pointer; color: var(--color-text-tertiary); font-size: 16px; line-height: 1; }
+  .chip-add { display: flex; align-items: center; gap: 6px; }
+  .btn-add { background: #1A5C38; color: #fff; border: none; border-radius: var(--border-radius-md); padding: 5px 12px; font-size: 13px; cursor: pointer; font-family: var(--font-sans); }
+  .btn-add:hover { background: #2E8B57; }
+  .actions { display: flex; gap: 10px; margin-top: 0.5rem; }
+  .btn-primary { background: #1A5C38; color: #fff; border: none; border-radius: var(--border-radius-md); padding: 9px 20px; font-size: 14px; cursor: pointer; font-family: var(--font-sans); font-weight: 500; display: flex; align-items: center; gap: 6px; }
+  .btn-primary:hover { background: #2E8B57; }
+  .btn-secondary { background: var(--color-background-secondary); color: var(--color-text-primary); border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 9px 20px; font-size: 14px; cursor: pointer; font-family: var(--font-sans); }
+  .btn-secondary:hover { background: var(--color-background-tertiary); }
+  .preview-banner { background: #E8A82E; border-radius: var(--border-radius-md); padding: 8px 12px; font-size: 13px; color: #3B2000; margin-bottom: 10px; display: none; }
+</style>
+
+<div class="page">
+  <h2 class="sr-only">World Diets student presentation template — fill in each section to describe your chosen food culture</h2>
+
+  <div class="header">
+    <i class="ti ti-world" style="font-size:24px; color:#E8A82E;" aria-hidden="true"></i>
+    <h1>World Diets — My Food Culture</h1>
+  </div>
+
+  <div class="steps-row">
+    <div class="step-card">
+      <div class="step-label">
+        <div class="step-num">1</div>
+        <span class="step-title"><i class="ti ti-salad" aria-hidden="true"></i> Diet name</span>
+      </div>
+      <input type="text" id="diet-name" placeholder="e.g. Mediterranean diet" />
+    </div>
+    <div class="step-card">
+      <div class="step-label">
+        <div class="step-num">2</div>
+        <span class="step-title"><i class="ti ti-map-pin" aria-hidden="true"></i> Country / region</span>
+      </div>
+      <input type="text" id="country" placeholder="e.g. Italy, Greece, Spain" />
+    </div>
+  </div>
+
+  <div class="step-card" style="margin-bottom:12px;">
+    <div class="step-label">
+      <div class="step-num">3</div>
+      <span class="step-title"><i class="ti ti-shopping-cart" aria-hidden="true"></i> Main ingredients — type and press Enter</span>
+    </div>
+    <div class="chip-add" style="margin-bottom:8px;">
+      <input type="text" id="ingredient-input" placeholder="e.g. Olive oil" style="width:auto; flex:1;" />
+      <button class="btn-add" onclick="addIngredient()"><i class="ti ti-plus" aria-hidden="true"></i> Add</button>
+    </div>
+    <div class="ingredients-wrap" id="ingredients-wrap">
+      <span class="ingredient-chip">🫒 Olive oil <span class="chip-remove" onclick="removeChip(this)">×</span></span>
+      <span class="ingredient-chip">🍅 Tomatoes <span class="chip-remove" onclick="removeChip(this)">×</span></span>
+      <span class="ingredient-chip">🐟 Fish <span class="chip-remove" onclick="removeChip(this)">×</span></span>
+    </div>
+  </div>
+
+  <div class="bottom-row">
+    <div class="pyramid-section">
+      <div class="section-title"><i class="ti ti-triangle" aria-hidden="true"></i> Step 4a — food pyramid</div>
+      <p style="font-size:12px; color:var(--color-text-secondary); margin-bottom:10px;">Bottom = eat most. Top = eat least. Fill in each level.</p>
+      <div class="pyramid-wrap" id="pyramid"></div>
+      <p style="font-size:11px; color:var(--color-text-tertiary); text-align:center;">Click the text in any tier to edit it</p>
+    </div>
+
+    <div class="points-section">
+      <div class="section-title"><i class="ti ti-list-check" aria-hidden="true"></i> Step 4b — good & bad points</div>
+      <div class="points-col">
+        <div class="points-header good-hdr"><i class="ti ti-circle-check" aria-hidden="true"></i> Good points</div>
+        <div id="good-points"></div>
+        <button class="btn-add" style="margin-top:4px;" onclick="addPoint('good')"><i class="ti ti-plus" aria-hidden="true"></i> Add point</button>
+      </div>
+      <div class="points-col" style="margin-top:12px;">
+        <div class="points-header bad-hdr"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Watch out for</div>
+        <div id="bad-points"></div>
+        <button class="btn-add" style="background:#C0392B; margin-top:4px;" onclick="addPoint('bad')"><i class="ti ti-plus" aria-hidden="true"></i> Add point</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="preview-banner" id="preview-banner">
+    <i class="ti ti-check" aria-hidden="true"></i> Great work! Ask Claude to give feedback on your food culture presentation.
+  </div>
+
+  <div class="actions">
+    <button class="btn-primary" onclick="submitPresentation()"><i class="ti ti-send" aria-hidden="true"></i> Get feedback from Claude</button>
+    <button class="btn-secondary" onclick="resetForm()"><i class="ti ti-refresh" aria-hidden="true"></i> Reset</button>
+  </div>
+</div>
+
+<script>
+const TIERS = [
+  { label: "Sweets & treats", emoji: "🍰", color: "#C0392B", freq: "rarely" },
+  { label: "Meat & dairy", emoji: "🥩", color: "#E67E22", freq: "weekly" },
+  { label: "Fish, eggs & protein", emoji: "🐟", color: "#2471A3", freq: "weekly" },
+  { label: "Fruits & vegetables", emoji: "🥦", color: "#27AE60", freq: "daily" },
+  { label: "Grains, rice & bread", emoji: "🍚", color: "#1A5C38", freq: "every-meal" },
+];
+const FREQS = [
+  { val: "rarely", label: "Rarely" },
+  { val: "monthly", label: "Monthly" },
+  { val: "weekly", label: "A few times/week" },
+  { val: "daily", label: "Daily" },
+  { val: "every-meal", label: "Every meal" },
+];
+
+function buildPyramid() {
+  const wrap = document.getElementById("pyramid");
+  wrap.innerHTML = "";
+  const maxW = 260;
+  const minW = 68;
+  const n = TIERS.length;
+  TIERS.forEach((t, i) => {
+    const w = minW + ((maxW - minW) * (i + 1) / n);
+    const div = document.createElement("div");
+    div.className = "tier";
+    div.style.cssText = `background:${t.color}; width:${w}px; height:38px;`;
+    const inner = document.createElement("div");
+    inner.className = "tier-inner";
+    const em = document.createElement("span");
+    em.className = "tier-emoji";
+    em.textContent = t.emoji;
+    const inp = document.createElement("input");
+    inp.className = "tier-input";
+    inp.value = t.label;
+    inp.placeholder = "What food goes here?";
+    inp.addEventListener("input", e => { t.label = e.target.value; });
+    const sel = document.createElement("select");
+    sel.className = "freq-select";
+    FREQS.forEach(f => {
+      const opt = document.createElement("option");
+      opt.value = f.val;
+      opt.textContent = f.label;
+      if (f.val === t.freq) opt.selected = true;
+      sel.appendChild(opt);
+    });
+    sel.addEventListener("change", e => { t.freq = e.target.value; });
+    inner.appendChild(em);
+    inner.appendChild(inp);
+    inner.appendChild(sel);
+    div.appendChild(inner);
+    wrap.appendChild(div);
+  });
+}
+
+const GOOD_DEFAULTS = ["Good for heart health", "Rich in vegetables"];
+const BAD_DEFAULTS = ["Can be expensive"];
+
+function buildPoints() {
+  GOOD_DEFAULTS.forEach(t => addPoint("good", t));
+  BAD_DEFAULTS.forEach(t => addPoint("bad", t));
+}
+
+function addPoint(type, val) {
+  const container = document.getElementById(type + "-points");
+  const row = document.createElement("div");
+  row.className = "point-row";
+  const dot = document.createElement("div");
+  dot.className = "point-dot " + (type === "good" ? "good-dot" : "bad-dot");
+  const inp = document.createElement("input");
+  inp.type = "text";
+  inp.placeholder = type === "good" ? "Write a good point..." : "Write a problem...";
+  inp.style.flex = "1";
+  if (val) inp.value = val;
+  const del = document.createElement("span");
+  del.className = "chip-remove";
+  del.textContent = "×";
+  del.style.cursor = "pointer";
+  del.onclick = () => row.remove();
+  row.appendChild(dot);
+  row.appendChild(inp);
+  row.appendChild(del);
+  container.appendChild(row);
+  inp.focus();
+}
+
+function addIngredient() {
+  const inp = document.getElementById("ingredient-input");
+  const val = inp.value.trim();
+  if (!val) return;
+  const wrap = document.getElementById("ingredients-wrap");
+  const chip = document.createElement("span");
+  chip.className = "ingredient-chip";
+  chip.innerHTML = val + ' <span class="chip-remove" onclick="removeChip(this)">×</span>';
+  wrap.appendChild(chip);
+  inp.value = "";
+  inp.focus();
+}
+
+function removeChip(el) { el.parentElement.remove(); }
+
+document.getElementById("ingredient-input").addEventListener("keydown", e => {
+  if (e.key === "Enter") { e.preventDefault(); addIngredient(); }
+});
+
+function submitPresentation() {
+  const name = document.getElementById("diet-name").value.trim() || "a food culture";
+  const country = document.getElementById("country").value.trim() || "unknown region";
+  const chips = [...document.querySelectorAll(".ingredient-chip")].map(c => c.textContent.replace("×","").trim());
+  const goods = [...document.querySelectorAll("#good-points input")].map(i => i.value).filter(Boolean);
+  const bads = [...document.querySelectorAll("#bad-points input")].map(i => i.value).filter(Boolean);
+  const pyramid = TIERS.map((t,i) => `  Level ${TIERS.length - i} (${TIERS.length-i === TIERS.length ? "bottom" : i===0?"top":"middle"}): ${t.label} — ${FREQS.find(f=>f.val===t.freq)?.label}`).join("\n");
+  const msg = `Here is my food culture presentation. Please give me feedback and tell me what is good and what I can improve!\n\nDiet name: ${name}\nCountry/region: ${country}\nMain ingredients: ${chips.join(", ") || "none listed"}\n\nFood pyramid (top to bottom = less to more):\n${pyramid}\n\nGood points:\n${goods.map(g=>"- "+g).join("\n") || "- none written"}\n\nWatch out for:\n${bads.map(b=>"- "+b).join("\n") || "- none written"}`;
+  document.getElementById("preview-banner").style.display = "block";
+  sendPrompt(msg);
+}
+
+function resetForm() {
+  document.getElementById("diet-name").value = "";
+  document.getElementById("country").value = "";
+  document.getElementById("ingredients-wrap").innerHTML = "";
+  document.getElementById("good-points").innerHTML = "";
+  document.getElementById("bad-points").innerHTML = "";
+  document.getElementById("preview-banner").style.display = "none";
+  TIERS[0] = { label: "Sweets & treats", emoji: "🍰", color: "#C0392B", freq: "rarely" };
+  TIERS[1] = { label: "Meat & dairy", emoji: "🥩", color: "#E67E22", freq: "weekly" };
+  TIERS[2] = { label: "Fish, eggs & protein", emoji: "🐟", color: "#2471A3", freq: "weekly" };
+  TIERS[3] = { label: "Fruits & vegetables", emoji: "🥦", color: "#27AE60", freq: "daily" };
+  TIERS[4] = { label: "Grains, rice & bread", emoji: "🍚", color: "#1A5C38", freq: "every-meal" };
+  buildPyramid();
+}
+
+buildPyramid();
+buildPoints();
+</script>
