@@ -1,281 +1,332 @@
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
 body{font-family:var(--font-sans);background:transparent;}
 .wrap{padding:1.5rem 0;}
 
-.hero{background:linear-gradient(135deg,#1A5C38 0%,#0f3d26 100%);border-radius:var(--border-radius-xl);padding:1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:16px;}
-.hero-icon{width:52px;height:52px;background:rgba(232,168,46,0.18);border-radius:var(--border-radius-lg);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.hero-icon i{font-size:28px;color:#E8A82E;}
-.hero-text h1{font-size:18px;font-weight:500;color:#E8A82E;margin-bottom:3px;}
+.hero{background:#1A5C38;border-radius:var(--border-radius-xl);padding:1.25rem 1.5rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:14px;}
+.hero-icon{width:46px;height:46px;background:rgba(232,168,46,.2);border-radius:var(--border-radius-lg);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hero-icon i{font-size:24px;color:#E8A82E;}
+.hero-text h1{font-size:17px;font-weight:500;color:#E8A82E;margin-bottom:2px;}
 .hero-text p{font-size:12px;color:#A8D5B5;line-height:1.5;}
 
 .section{margin-bottom:1.25rem;}
 .section-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.step-pill{background:#1A5C38;color:#fff;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:500;}
-.section-title{font-size:14px;font-weight:500;color:var(--color-text-primary);}
+.step-pill{background:#1A5C38;color:#fff;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:500;flex-shrink:0;}
+.section-title{font-size:13px;font-weight:500;color:var(--color-text-primary);}
+.card{background:var(--color-background-primary);border:.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:.875rem 1rem;}
 
-.country-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;}
-.cbtn{border:1.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:10px 4px 8px;cursor:pointer;text-align:center;background:var(--color-background-primary);display:flex;flex-direction:column;align-items:center;gap:4px;transition:all .15s;}
+.country-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+.cbtn{border:1.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:9px 4px 7px;cursor:pointer;text-align:center;background:var(--color-background-primary);display:flex;flex-direction:column;align-items:center;gap:3px;transition:all .15s;}
 .cbtn:hover{border-color:#2E8B57;background:var(--color-background-secondary);}
 .cbtn.active{border-color:#1A5C38;border-width:2px;background:#f0faf4;}
-.cbtn .cflag{font-size:26px;line-height:1;}
-.cbtn .cname{font-size:10px;font-weight:500;color:var(--color-text-primary);line-height:1.2;}
+.cbtn .cflag{font-size:24px;line-height:1;}
+.cbtn .cname{font-size:10px;font-weight:500;color:var(--color-text-primary);}
 
 .fields-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
 .field label{display:block;font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em;}
-.field input{width:100%;border:.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:8px 11px;font-size:13px;font-family:var(--font-sans);background:var(--color-background-primary);color:var(--color-text-primary);}
-.field input:focus{outline:none;border-color:#1A5C38;box-shadow:0 0 0 2px rgba(26,92,56,.12);}
+input[type=text],textarea{width:100%;border:.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:8px 11px;font-size:13px;font-family:var(--font-sans);background:var(--color-background-primary);color:var(--color-text-primary);}
+input[type=text]:focus,textarea:focus{outline:none;border-color:#1A5C38;box-shadow:0 0 0 2px rgba(26,92,56,.1);}
 
-.bank-wrap{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);border:.5px solid var(--color-border-tertiary);padding:12px;}
-.bank-add-row{display:flex;gap:8px;margin-bottom:10px;}
-.bank-add-row input{flex:1;border:.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:7px 11px;font-size:13px;font-family:var(--font-sans);background:var(--color-background-primary);color:var(--color-text-primary);}
-.bank-add-row input:focus{outline:none;border-color:#1A5C38;}
-.bank-add-row input::placeholder{color:var(--color-text-tertiary);}
-.add-btn{background:#1A5C38;color:#fff;border:none;border-radius:var(--border-radius-md);padding:7px 14px;font-size:13px;cursor:pointer;font-family:var(--font-sans);display:flex;align-items:center;gap:5px;white-space:nowrap;}
-.add-btn:hover{background:#2E8B57;}
-.bank-chips{display:flex;flex-wrap:wrap;gap:7px;min-height:44px;}
-.ing-chip{display:flex;flex-direction:column;align-items:center;gap:3px;background:var(--color-background-primary);border:1.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:7px 9px;cursor:grab;user-select:none;min-width:58px;transition:all .15s;position:relative;}
-.ing-chip:hover{border-color:#1A5C38;}
-.ing-chip.dragging{opacity:.35;cursor:grabbing;}
-.chip-emoji{font-size:24px;line-height:1;}
-.chip-label{font-size:10px;color:var(--color-text-secondary);text-align:center;white-space:nowrap;max-width:60px;overflow:hidden;text-overflow:ellipsis;}
-.chip-del{position:absolute;top:2px;right:3px;font-size:13px;color:var(--color-text-tertiary);cursor:pointer;line-height:1;display:none;}
-.ing-chip:hover .chip-del{display:block;}
-.chip-del:hover{color:var(--color-text-primary);}
+.macro-section{margin-bottom:1.25rem;}
+.macro-intro{font-size:12px;color:var(--color-text-secondary);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.macro-intro i{color:#1A5C38;font-size:15px;}
+.macro-groups{display:flex;flex-direction:column;gap:6px;}
+.macro-group{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:10px 12px;}
+.macro-group-title{font-size:11px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.macro-group-title i{font-size:14px;}
+.macro-tiles{display:flex;flex-wrap:wrap;gap:6px;}
+.macro-tile{display:flex;flex-direction:column;align-items:center;gap:3px;background:var(--color-background-primary);border:1.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:8px 10px;cursor:grab;user-select:none;min-width:62px;transition:all .15s;position:relative;}
+.macro-tile:hover{border-color:#1A5C38;transform:translateY(-1px);}
+.macro-tile.dragging{opacity:.3;}
+.macro-tile.in-pyramid{border-color:#1A5C38;background:#f0faf4;opacity:.6;cursor:default;}
+.macro-tile.in-pyramid:hover{transform:none;}
+.tile-emoji{font-size:26px;line-height:1;}
+.tile-label{font-size:10px;color:var(--color-text-secondary);text-align:center;white-space:nowrap;}
 
-.pyramid-hint{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--color-text-secondary);margin-bottom:12px;padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);}
-.pyramid-hint i{font-size:16px;color:#1A5C38;}
-.pyramid-outer{display:flex;flex-direction:column;align-items:center;gap:5px;}
-.tier-row{display:flex;align-items:center;gap:10px;width:100%;}
-.tier-side{font-size:10px;color:var(--color-text-secondary);width:64px;line-height:1.3;}
-.tier-side.right{text-align:left;}
+.add-custom-row{display:flex;gap:8px;align-items:center;padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-lg);border:.5px dashed var(--color-border-secondary);}
+.add-custom-row span{font-size:12px;color:var(--color-text-secondary);}
+.add-custom-row input{flex:1;font-size:13px;}
+.btn-sm{background:#1A5C38;color:#fff;border:none;border-radius:var(--border-radius-md);padding:7px 13px;font-size:12px;cursor:pointer;font-family:var(--font-sans);display:flex;align-items:center;gap:5px;white-space:nowrap;}
+.btn-sm:hover{background:#2E8B57;}
+
+.pyramid-hint{font-size:12px;color:var(--color-text-secondary);margin-bottom:10px;display:flex;align-items:center;gap:7px;padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);}
+.pyramid-hint i{color:#1A5C38;font-size:15px;}
+.pyramid-outer{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.tier-row{display:flex;align-items:center;gap:8px;width:100%;}
+.tier-side{font-size:10px;color:var(--color-text-secondary);width:58px;line-height:1.3;}
 .tier-side.left{text-align:right;}
-.tier-drop{border-radius:8px;display:flex;align-items:center;flex-wrap:wrap;gap:4px;padding:6px 10px;min-height:48px;position:relative;transition:outline .1s;}
-.tier-drop.over{outline:2.5px dashed rgba(255,255,255,.75);}
-.tier-ghost{color:rgba(255,255,255,.45);font-size:11px;font-style:italic;pointer-events:none;padding:2px;}
-.tier-chip-item{display:flex;flex-direction:column;align-items:center;gap:1px;background:rgba(255,255,255,.22);border-radius:5px;padding:5px 7px;cursor:grab;min-width:46px;transition:opacity .15s;}
-.tier-chip-item .tc-emoji{font-size:17px;line-height:1;}
-.tier-chip-item .tc-label{font-size:9px;color:rgba(255,255,255,.9);text-align:center;white-space:nowrap;}
-.tier-chip-item .tc-rm{font-size:12px;color:rgba(255,255,255,.55);cursor:pointer;line-height:1;}
-.tier-chip-item .tc-rm:hover{color:#fff;}
-.tier-name-tag{position:absolute;right:9px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.5);font-size:10px;pointer-events:none;white-space:nowrap;}
+.tier-side.right{text-align:left;}
+.tier-drop{border-radius:7px;display:flex;align-items:center;flex-wrap:wrap;gap:4px;padding:6px 10px;min-height:50px;position:relative;transition:outline .1s;}
+.tier-drop.over{outline:2.5px dashed rgba(255,255,255,.8);}
+.tier-ghost{color:rgba(255,255,255,.4);font-size:11px;font-style:italic;pointer-events:none;padding:2px 0;}
+.tier-name-tag{position:absolute;right:8px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.4);font-size:10px;pointer-events:none;white-space:nowrap;}
+.tier-chip{display:flex;flex-direction:column;align-items:center;gap:1px;background:rgba(255,255,255,.22);border-radius:6px;padding:5px 7px;cursor:grab;min-width:48px;transition:opacity .1s;}
+.tier-chip .tc-e{font-size:18px;line-height:1;}
+.tier-chip .tc-l{font-size:9px;color:rgba(255,255,255,.9);text-align:center;white-space:nowrap;}
+.tier-chip .tc-rm{font-size:12px;color:rgba(255,255,255,.5);cursor:pointer;line-height:1;}
+.tier-chip .tc-rm:hover{color:#fff;}
 
-.points-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.points-col{}
-.pts-head{border-radius:var(--border-radius-md);padding:8px 12px;font-size:13px;font-weight:500;color:#fff;margin-bottom:8px;display:flex;align-items:center;gap:7px;}
-.pts-head i{font-size:16px;}
-.green-head{background:#1A7F4B;}
-.red-head{background:#C0392B;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.pts-head{border-radius:var(--border-radius-md);padding:7px 12px;font-size:13px;font-weight:500;color:#fff;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.pts-head i{font-size:15px;}
+.gh{background:#1A7F4B;}.rh{background:#C0392B;}
 .pt-row{display:flex;align-items:center;gap:7px;margin-bottom:6px;}
 .pdot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
-.pdot.g{background:#1A7F4B;}
-.pdot.b{background:#C0392B;}
-.pt-row input{flex:1;border:.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:6px 10px;font-size:12px;font-family:var(--font-sans);background:var(--color-background-primary);color:var(--color-text-primary);}
-.pt-row input:focus{outline:none;border-color:#1A5C38;}
-.pt-row .pt-rm{font-size:14px;color:var(--color-text-tertiary);cursor:pointer;}
+.pdot.g{background:#1A7F4B;}.pdot.b{background:#C0392B;}
+.pt-row input{flex:1;font-size:12px;}
+.pt-row .pt-rm{font-size:14px;color:var(--color-text-tertiary);cursor:pointer;flex-shrink:0;}
 .pt-row .pt-rm:hover{color:var(--color-text-primary);}
-.add-pt-btn{background:none;border:.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:5px 11px;font-size:12px;cursor:pointer;font-family:var(--font-sans);color:var(--color-text-secondary);display:flex;align-items:center;gap:5px;margin-top:4px;}
-.add-pt-btn:hover{background:var(--color-background-secondary);color:var(--color-text-primary);}
+.add-pt-btn{background:none;border:.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:5px 11px;font-size:12px;cursor:pointer;font-family:var(--font-sans);color:var(--color-text-secondary);display:flex;align-items:center;gap:5px;margin-top:5px;}
+.add-pt-btn:hover{background:var(--color-background-secondary);}
+
+.kp-hint{font-size:12px;color:var(--color-text-secondary);margin-bottom:10px;display:flex;align-items:center;gap:7px;padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);}
+.kp-hint i{color:#1A5C38;font-size:15px;}
+.example-box{background:#f0faf4;border:.5px solid #A8D5B5;border-radius:var(--border-radius-md);padding:10px 14px;margin-bottom:12px;}
+.example-box p{font-size:12px;color:#1A5C38;line-height:1.7;}
+.kp-row-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;}
+.kp-bullet{width:24px;height:24px;background:#1A5C38;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.kp-bullet span{color:#fff;font-size:12px;font-weight:500;}
+.kp-row-item textarea{flex:1;border:.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:8px 11px;font-size:13px;font-family:var(--font-sans);background:var(--color-background-primary);color:var(--color-text-primary);resize:none;line-height:1.6;min-height:42px;}
+.kp-row-item textarea:focus{outline:none;border-color:#1A5C38;}
+.kp-rm{color:var(--color-text-tertiary);cursor:pointer;font-size:18px;margin-top:4px;flex-shrink:0;}
+.kp-rm:hover{color:var(--color-text-primary);}
 
 .actions{display:flex;gap:10px;margin-top:1.5rem;}
-.dl-btn{flex:1;background:#1A5C38;color:#fff;border:none;border-radius:var(--border-radius-lg);padding:13px;font-size:15px;font-weight:500;cursor:pointer;font-family:var(--font-sans);display:flex;align-items:center;justify-content:center;gap:8px;transition:background .15s;}
+.dl-btn{flex:1;background:#1A5C38;color:#fff;border:none;border-radius:var(--border-radius-lg);padding:13px;font-size:15px;font-weight:500;cursor:pointer;font-family:var(--font-sans);display:flex;align-items:center;justify-content:center;gap:8px;}
 .dl-btn:hover{background:#2E8B57;}
 .dl-btn:disabled{background:#aaa;cursor:not-allowed;}
-.reset-btn{background:none;border:.5px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);padding:13px 20px;font-size:14px;cursor:pointer;font-family:var(--font-sans);color:var(--color-text-secondary);display:flex;align-items:center;gap:6px;}
+.reset-btn{background:none;border:.5px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);padding:13px 18px;font-size:13px;cursor:pointer;font-family:var(--font-sans);color:var(--color-text-secondary);display:flex;align-items:center;gap:6px;}
 .reset-btn:hover{background:var(--color-background-secondary);}
-
-.emoji-picker{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--color-background-primary);border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);padding:10px;z-index:100;display:flex;flex-wrap:wrap;gap:5px;width:220px;max-height:200px;overflow-y:auto;box-shadow:0 4px 20px rgba(0,0,0,.15);}
-.ep-item{font-size:22px;cursor:pointer;padding:3px 5px;border-radius:5px;}
-.ep-item:hover{background:var(--color-background-secondary);}
-.emoji-overlay{position:fixed;inset:0;z-index:99;}
 </style>
 
 <div class="wrap">
-<h2 class="sr-only">Seven Countries Study food culture template — choose a country, add ingredients, drag them into the food pyramid, then download as PDF</h2>
+<h2 class="sr-only">Seven Countries Study student template — drag macro ingredient tiles into the food pyramid, write key points, then download as PDF</h2>
 
 <div class="hero">
   <div class="hero-icon"><i class="ti ti-world" aria-hidden="true"></i></div>
   <div class="hero-text">
     <h1>The Seven Countries Study</h1>
-    <p>Pick a country, add ingredients, drag them into the pyramid, then download your PDF!</p>
+    <p>Choose a country · Drag ingredients into the pyramid · Download your PDF!</p>
   </div>
 </div>
 
 <div class="section">
-  <div class="section-head">
-    <span class="step-pill">Step 1</span>
-    <span class="section-title"><i class="ti ti-flag" style="font-size:16px;vertical-align:-2px;margin-right:4px;" aria-hidden="true"></i>Choose a country</span>
-  </div>
+  <div class="section-head"><span class="step-pill">Step 1</span><span class="section-title"><i class="ti ti-flag" style="font-size:15px;vertical-align:-2px;margin-right:4px;" aria-hidden="true"></i>Choose a country</span></div>
   <div class="country-grid" id="country-grid"></div>
 </div>
 
 <div class="section">
-  <div class="section-head">
-    <span class="step-pill">Step 2</span>
-    <span class="section-title"><i class="ti ti-pencil" style="font-size:16px;vertical-align:-2px;margin-right:4px;" aria-hidden="true"></i>Your details</span>
-  </div>
-  <div class="fields-row">
-    <div class="field"><label>Diet name</label><input type="text" id="diet-name" placeholder="e.g. Japanese diet"/></div>
-    <div class="field"><label>Country / region</label><input type="text" id="country-txt" placeholder="e.g. Japan"/></div>
-    <div class="field"><label>Your name (optional)</label><input type="text" id="student-name" placeholder="e.g. Maria"/></div>
+  <div class="section-head"><span class="step-pill">Step 2</span><span class="section-title"><i class="ti ti-pencil" style="font-size:15px;vertical-align:-2px;margin-right:4px;" aria-hidden="true"></i>Your details</span></div>
+  <div class="card">
+    <div class="fields-row">
+      <div class="field"><label>Diet name</label><input type="text" id="diet-name" placeholder="e.g. Japanese diet"/></div>
+      <div class="field"><label>Country / region</label><input type="text" id="country-txt" placeholder="e.g. Japan"/></div>
+      <div class="field"><label>Your name</label><input type="text" id="student-name" placeholder="e.g. Maria"/></div>
+    </div>
   </div>
 </div>
 
-<div class="section">
-  <div class="section-head">
-    <span class="step-pill">Step 3</span>
-    <span class="section-title"><i class="ti ti-shopping-cart" style="font-size:16px;vertical-align:-2px;margin-right:4px;" aria-hidden="true"></i>Ingredients — type your own or use the ones loaded!</span>
-  </div>
-  <div class="bank-wrap">
-    <div class="bank-add-row">
-      <input type="text" id="ing-text" placeholder="Type an ingredient name, e.g. Rice..." />
-      <button class="add-btn" id="emoji-toggle-btn" type="button" onclick="showEmojiPicker()">
-        <i class="ti ti-mood-smile" aria-hidden="true"></i> Pick emoji
-      </button>
-      <button class="add-btn" onclick="addCustomChip()" type="button">
-        <i class="ti ti-plus" aria-hidden="true"></i> Add
-      </button>
-    </div>
+<div class="section macro-section">
+  <div class="section-head"><span class="step-pill">Step 3</span><span class="section-title"><i class="ti ti-drag-drop" style="font-size:15px;vertical-align:-2px;margin-right:4px;" aria-hidden="true"></i>Ingredients — drag tiles into the pyramid below!</span></div>
+  <div class="macro-intro"><i class="ti ti-info-circle" aria-hidden="true"></i> All tiles are draggable. Drag any food group straight into the correct level of the pyramid.</div>
+  <div class="macro-groups" id="macro-groups"></div>
+  <div class="add-custom-row" style="margin-top:8px;">
+    <i class="ti ti-plus" style="font-size:16px;color:#1A5C38;" aria-hidden="true"></i>
+    <input type="text" id="custom-ing" placeholder="Add your own ingredient name..." style="max-width:260px;"/>
+    <span id="custom-emoji-btn" style="font-size:24px;cursor:pointer;padding:2px 6px;border-radius:6px;border:.5px solid var(--color-border-secondary);background:var(--color-background-primary);" title="Click to pick emoji">🍽️</span>
     <div style="position:relative;">
-      <span id="chosen-emoji" style="font-size:22px;display:none;margin-bottom:8px;display:inline-block;cursor:pointer;" title="Click to change"></span>
-      <div id="emoji-portal" style="position:absolute;top:0;left:0;z-index:100;display:none;"></div>
+      <div id="emoji-picker" style="display:none;position:absolute;bottom:36px;left:0;background:var(--color-background-primary);border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);padding:10px;z-index:300;display:none;flex-wrap:wrap;gap:5px;width:220px;max-height:180px;overflow-y:auto;"></div>
     </div>
-    <div class="bank-chips" id="ing-bank"></div>
+    <button class="btn-sm" onclick="addCustomTile()"><i class="ti ti-plus" aria-hidden="true"></i> Add tile</button>
   </div>
 </div>
 
 <div class="section">
-  <div class="section-head">
-    <span class="step-pill">Step 4a</span>
-    <span class="section-title"><i class="ti ti-triangle" style="font-size:16px;vertical-align:-2px;margin-right:4px;" aria-hidden="true"></i>Food pyramid — drag ingredients into each level!</span>
+  <div class="section-head"><span class="step-pill">Step 4a</span><span class="section-title"><i class="ti ti-triangle" style="font-size:15px;vertical-align:-2px;margin-right:4px;" aria-hidden="true"></i>Food pyramid — drag &amp; drop here!</span></div>
+  <div class="card">
+    <div class="pyramid-hint"><i class="ti ti-arrows-up-down" aria-hidden="true"></i> Top = eat rarely &nbsp;·&nbsp; Bottom = eat every meal &nbsp;·&nbsp; Click × on a tile to return it</div>
+    <div class="pyramid-outer" id="pyramid-outer"></div>
   </div>
-  <div class="pyramid-hint">
-    <i class="ti ti-info-circle" aria-hidden="true"></i>
-    Drag from Step 3 into any tier. Top = eat rarely. Bottom = eat every meal.
-  </div>
-  <div class="pyramid-outer" id="pyramid-outer"></div>
 </div>
 
 <div class="section">
-  <div class="section-head">
-    <span class="step-pill">Step 4b</span>
-    <span class="section-title"><i class="ti ti-list-check" style="font-size:16px;vertical-align:-2px;margin-right:4px;" aria-hidden="true"></i>Good points &amp; watch out for</span>
+  <div class="section-head"><span class="step-pill">Step 4b</span><span class="section-title"><i class="ti ti-list-check" style="font-size:15px;vertical-align:-2px;margin-right:4px;" aria-hidden="true"></i>Good points &amp; watch out for</span></div>
+  <div class="card">
+    <div class="two-col">
+      <div>
+        <div class="pts-head gh"><i class="ti ti-circle-check" aria-hidden="true"></i> Good for health</div>
+        <div id="good-list"></div>
+        <button class="add-pt-btn" onclick="addPt('good')"><i class="ti ti-plus" style="font-size:13px;" aria-hidden="true"></i> Add</button>
+      </div>
+      <div>
+        <div class="pts-head rh"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Watch out for</div>
+        <div id="bad-list"></div>
+        <button class="add-pt-btn" onclick="addPt('bad')"><i class="ti ti-plus" style="font-size:13px;" aria-hidden="true"></i> Add</button>
+      </div>
+    </div>
   </div>
-  <div class="points-grid">
-    <div class="points-col">
-      <div class="pts-head green-head"><i class="ti ti-circle-check" aria-hidden="true"></i> Good for health</div>
-      <div id="good-list"></div>
-      <button class="add-pt-btn" onclick="addPt('good')"><i class="ti ti-plus" style="font-size:14px;" aria-hidden="true"></i> Add point</button>
+</div>
+
+<div class="section">
+  <div class="section-head"><span class="step-pill">Step 5</span><span class="section-title"><i class="ti ti-writing" style="font-size:15px;vertical-align:-2px;margin-right:4px;" aria-hidden="true"></i>Key points</span></div>
+  <div class="card">
+    <div class="example-box">
+      <p><strong>Example (Mediterranean):</strong><br>
+      • Red meat is consumed occasionally, like sweets.<br>
+      • Chicken, eggs, cheese and fish are eaten weekly.<br>
+      • Daily foods are bread, pasta, vegetables, fruits and olive oil.<br>
+      • It is important to drink water and stay active.</p>
     </div>
-    <div class="points-col">
-      <div class="pts-head red-head"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Watch out for</div>
-      <div id="bad-list"></div>
-      <button class="add-pt-btn" onclick="addPt('bad')"><i class="ti ti-plus" style="font-size:14px;" aria-hidden="true"></i> Add point</button>
-    </div>
+    <div class="kp-hint"><i class="ti ti-bulb" aria-hidden="true"></i> Write one important fact per line. Edit the pre-filled examples or add your own.</div>
+    <div id="kp-list"></div>
+    <button class="add-pt-btn" style="margin-top:4px;" onclick="addKP('')"><i class="ti ti-plus" style="font-size:13px;" aria-hidden="true"></i> Add key point</button>
   </div>
 </div>
 
 <div class="actions">
-  <button class="dl-btn" id="dl-btn" onclick="downloadPDF()">
-    <i class="ti ti-download" style="font-size:18px;" aria-hidden="true"></i> Download as PDF
-  </button>
-  <button class="reset-btn" onclick="resetAll()">
-    <i class="ti ti-refresh" style="font-size:16px;" aria-hidden="true"></i> Reset
-  </button>
+  <button class="dl-btn" id="dl-btn" onclick="downloadPDF()"><i class="ti ti-download" style="font-size:18px;" aria-hidden="true"></i> Download as PDF</button>
+  <button class="reset-btn" onclick="resetAll()"><i class="ti ti-refresh" style="font-size:16px;" aria-hidden="true"></i> Reset</button>
 </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
-const FOOD_EMOJIS=["🍎","🍊","🍋","🍇","🍓","🫐","🍑","🥭","🍌","🍉","🥝","🥑","🍅","🫑","🥦","🥬","🥒","🌽","🥕","🧅","🧄","🥔","🍆","🫛","🫘","🌶️","🍞","🥐","🥖","🥨","🧀","🥚","🍳","🥓","🥩","🍗","🍖","🌭","🍔","🍟","🍕","🥗","🥘","🍲","🫕","🥣","🍛","🍜","🍝","🍣","🍱","🍚","🍙","🥟","🦪","🍤","🐟","🐠","🐡","🦑","🦐","🦞","🦀","🥛","🧈","🍦","🍰","🎂","🍮","🍭","🍬","🍫","🧁","🍩","🍪","🌰","🥜","🫚","🫒","🍷","🍺","🧃","🥤","🍵","☕","🧋","🫖","🥃","🍶","🧂","🫙"];
-const DIETS=[
-  {id:"usa",flag:"🇺🇸",name:"USA",region:"United States",ings:[{e:"🥩",l:"Beef"},{e:"🍞",l:"White bread"},{e:"🧀",l:"Cheese"},{e:"🥛",l:"Milk"},{e:"🍳",l:"Eggs"},{e:"🌽",l:"Corn"},{e:"🧈",l:"Butter"},{e:"🍎",l:"Apple"},{e:"🥫",l:"Canned food"},{e:"🍰",l:"Cake"}],
-   tiers:[{n:"Sweets & cakes",c:"#C0392B",side:"Rarely"},{n:"Red meat",c:"#A93226",side:"Daily"},{n:"Dairy & cheese",c:"#E67E22",side:"Daily"},{n:"Eggs & poultry",c:"#D4AC0D",side:"Daily"},{n:"Fruit & veg",c:"#27AE60",side:"Some meals"},{n:"Bread & cereals",c:"#1A5C38",side:"Every meal"}],
-   goods:["Good source of protein","Dairy gives calcium","Some fruit & vegetables","Foods fortified with vitamins"],
-   bads:["High rates of heart disease","Too much sugar & fat","Very high in salt","Linked to obesity"]},
-  {id:"ita",flag:"🇮🇹",name:"Italy",region:"Italy (Crevalcore & Montegiorgio)",ings:[{e:"🫒",l:"Olive oil"},{e:"🍝",l:"Pasta"},{e:"🍅",l:"Tomatoes"},{e:"🐟",l:"Fish"},{e:"🧄",l:"Garlic"},{e:"🥬",l:"Vegetables"},{e:"🧀",l:"Parmesan"},{e:"🍷",l:"Wine"},{e:"🫘",l:"Legumes"},{e:"🍋",l:"Lemon"}],
-   tiers:[{n:"Wine & sweets",c:"#C0392B",side:"Occasionally"},{n:"Red meat",c:"#A93226",side:"Rarely"},{n:"Fish & eggs",c:"#2471A3",side:"Few times/week"},{n:"Cheese & dairy",c:"#E67E22",side:"Moderate"},{n:"Olive oil & legumes",c:"#27AE60",side:"Daily"},{n:"Vegetables & fruit",c:"#1E8449",side:"Every meal"},{n:"Pasta & bread",c:"#1A5C38",side:"Every meal"}],
-   goods:["Low heart disease rates","Olive oil = healthy fats","Lots of fresh vegetables","Long healthy life expectancy"],
-   bads:["Pasta can be high in carbs","Some dishes quite salty","Wine culture — some alcohol","Fresh ingredients can cost more"]},
-  {id:"fin",flag:"🇫🇮",name:"Finland",region:"Finland (East & West)",ings:[{e:"🥛",l:"Full-fat milk"},{e:"🧈",l:"Butter"},{e:"🥓",l:"Pork"},{e:"🍞",l:"Rye bread"},{e:"🐟",l:"Herring"},{e:"🥔",l:"Potatoes"},{e:"🫐",l:"Berries"},{e:"🌾",l:"Oats"},{e:"🍰",l:"Pastries"},{e:"🧂",l:"Salt fish"}],
-   tiers:[{n:"Pastries & sweets",c:"#C0392B",side:"Regularly"},{n:"Butter & cream",c:"#E67E22",side:"Daily"},{n:"Pork & sausage",c:"#A93226",side:"Several/week"},{n:"Full-fat dairy",c:"#F39C12",side:"Daily"},{n:"Herring & fish",c:"#2471A3",side:"Weekly"},{n:"Potatoes & veg",c:"#27AE60",side:"Daily"},{n:"Rye bread & oats",c:"#1A5C38",side:"Every meal"}],
-   goods:["Herring is rich in omega-3","Wild berries full of antioxidants","Rye bread high in fibre","Dairy gives strong bones"],
-   bads:["Very high heart disease in 1950s","Too much saturated fat","Lots of processed meat","High salt from preserved foods"]},
-  {id:"gre",flag:"🇬🇷",name:"Greece",region:"Greece (Crete & Corfu)",ings:[{e:"🫒",l:"Olive oil"},{e:"🥗",l:"Salad"},{e:"🐟",l:"Fish"},{e:"🍅",l:"Tomatoes"},{e:"🧅",l:"Onions"},{e:"🧀",l:"Feta"},{e:"🫘",l:"Lentils"},{e:"🍋",l:"Lemon"},{e:"🍞",l:"Bread"},{e:"🍯",l:"Honey"}],
-   tiers:[{n:"Honey & sweets",c:"#C0392B",side:"Rarely"},{n:"Red meat",c:"#A93226",side:"Monthly"},{n:"Fish & seafood",c:"#2471A3",side:"Weekly"},{n:"Feta & dairy",c:"#E67E22",side:"Moderate"},{n:"Olive oil",c:"#27AE60",side:"Every meal"},{n:"Salads & legumes",c:"#1E8449",side:"Every meal"},{n:"Bread & grains",c:"#1A5C38",side:"Every meal"}],
-   goods:["Lowest heart disease in the study!","Olive oil protects the heart","Huge amounts of fresh vegetables","Long relaxed mealtimes = less stress"],
-   bads:["Feta cheese is quite salty","Fresh fish can be expensive","White bread at every meal","Lifestyle hard to copy in cold countries"]},
-  {id:"yug",flag:"🇷🇸",name:"Yugoslavia",region:"Yugoslavia (Dalmatia & Slavonia)",ings:[{e:"🌽",l:"Maize"},{e:"🍞",l:"Dark bread"},{e:"🫘",l:"Beans"},{e:"🥔",l:"Potatoes"},{e:"🧅",l:"Onions"},{e:"🐖",l:"Pork"},{e:"🥛",l:"Dairy"},{e:"🍎",l:"Apples"},{e:"🥬",l:"Cabbage"},{e:"🧂",l:"Preserved meat"}],
-   tiers:[{n:"Sweets & pastries",c:"#C0392B",side:"Occasionally"},{n:"Pork & lard",c:"#E67E22",side:"Few times/week"},{n:"Dairy & eggs",c:"#F39C12",side:"Daily"},{n:"Beans & legumes",c:"#27AE60",side:"Often"},{n:"Potatoes & root veg",c:"#1E8449",side:"Daily"},{n:"Maize & dark bread",c:"#1A5C38",side:"Every meal"}],
-   goods:["Beans are a great cheap protein","Whole grains give good energy","Vegetables at most meals","Very affordable simple foods"],
-   bads:["Lard used for cooking = high fat","Preserved meats are very salty","Limited fresh food in winter","Heart disease varied a lot by region"]},
-  {id:"ned",flag:"🇳🇱",name:"Netherlands",region:"Netherlands (Zutphen)",ings:[{e:"🧀",l:"Dutch cheese"},{e:"🥛",l:"Full-fat milk"},{e:"🍞",l:"Bread"},{e:"🥔",l:"Potatoes"},{e:"🥩",l:"Beef"},{e:"🐟",l:"Herring"},{e:"🧈",l:"Butter"},{e:"🥕",l:"Carrots"},{e:"🥚",l:"Eggs"},{e:"🍰",l:"Biscuits"}],
-   tiers:[{n:"Cakes & biscuits",c:"#C0392B",side:"Regularly"},{n:"Butter & fats",c:"#E67E22",side:"Daily"},{n:"Meat & cold cuts",c:"#A93226",side:"Daily"},{n:"Cheese & dairy",c:"#F39C12",side:"Daily"},{n:"Herring & fish",c:"#2471A3",side:"Weekly"},{n:"Vegetables",c:"#27AE60",side:"Daily"},{n:"Bread & potatoes",c:"#1A5C38",side:"Every meal"}],
-   goods:["High dairy = strong bones","Herring rich in omega-3","Vegetables at most meals","Hearty bread high in fibre"],
-   bads:["Very high in saturated fat","High heart disease rates found","Lots of full-fat cheese","Too much full-fat dairy"]},
-  {id:"jap",flag:"🇯🇵",name:"Japan",region:"Japan (Tanushimaru & Ushibuka)",ings:[{e:"🍚",l:"Rice"},{e:"🐟",l:"Fish"},{e:"🥬",l:"Seaweed"},{e:"🍵",l:"Green tea"},{e:"🫘",l:"Tofu"},{e:"🍜",l:"Miso soup"},{e:"🥢",l:"Vegetables"},{e:"🧅",l:"Spring onion"},{e:"🐠",l:"Seafood"},{e:"🍱",l:"Bento"}],
-   tiers:[{n:"Sweets & alcohol",c:"#C0392B",side:"Rarely"},{n:"Meat & eggs",c:"#E67E22",side:"Very little"},{n:"Fish & tofu",c:"#2471A3",side:"Daily"},{n:"Seaweed & veg",c:"#27AE60",side:"Every meal"},{n:"Rice & miso soup",c:"#1A5C38",side:"Every meal"}],
-   goods:["Lowest heart disease in the study!","Fish = omega-3 & lean protein","Green tea full of antioxidants","Small portions = healthy weight"],
-   bads:["Miso & soy sauce = high sodium","Low calcium (little dairy)","Very high carbohydrate from rice","Hard to follow outside Japan"]}
+const MACRO_GROUPS=[
+  {label:"Proteins",icon:"ti-meat",tiles:[
+    {e:"🥩",l:"Red meat"},{e:"🍗",l:"Poultry"},{e:"🐟",l:"Fish"},{e:"🦐",l:"Seafood"},
+    {e:"🥚",l:"Eggs"},{e:"🫘",l:"Legumes"},{e:"🥜",l:"Nuts"},{e:"🫘",l:"Tofu"}
+  ]},
+  {label:"Dairy",icon:"ti-droplet",tiles:[
+    {e:"🥛",l:"Milk"},{e:"🧀",l:"Cheese"},{e:"🧈",l:"Butter"},{e:"🍦",l:"Cream"}
+  ]},
+  {label:"Grains & Starches",icon:"ti-wheat",tiles:[
+    {e:"🍞",l:"Bread"},{e:"🍝",l:"Pasta"},{e:"🍚",l:"Rice"},{e:"🥔",l:"Potatoes"},
+    {e:"🌽",l:"Maize"},{e:"🌾",l:"Oats"},{e:"🥐",l:"Pastry"}
+  ]},
+  {label:"Fruit & Vegetables",icon:"ti-plant",tiles:[
+    {e:"🥦",l:"Vegetables"},{e:"🥬",l:"Leafy greens"},{e:"🍅",l:"Tomatoes"},
+    {e:"🥕",l:"Root veg"},{e:"🍎",l:"Fruit"},{e:"🫐",l:"Berries"},{e:"🥑",l:"Avocado"}
+  ]},
+  {label:"Fats & Oils",icon:"ti-droplets",tiles:[
+    {e:"🫒",l:"Olive oil"},{e:"🧈",l:"Animal fat"},{e:"🥥",l:"Coconut oil"}
+  ]},
+  {label:"Drinks",icon:"ti-cup",tiles:[
+    {e:"💧",l:"Water"},{e:"🍵",l:"Tea"},{e:"☕",l:"Coffee"},{e:"🍷",l:"Wine"},{e:"🍺",l:"Beer"}
+  ]},
+  {label:"Sweets & Extras",icon:"ti-candy",tiles:[
+    {e:"🍰",l:"Cakes"},{e:"🍬",l:"Sweets"},{e:"🍫",l:"Chocolate"},{e:"🧂",l:"Salt"},{e:"🍯",l:"Honey"}
+  ]}
 ];
 
-let sel=null,dragItem=null,dragSource=null,pickedEmoji="🍽️",pickerOpen=false;
+const EXTRA_EMOJIS=["🥩","🍗","🐟","🦐","🥚","🫘","🥜","🥛","🧀","🧈","🍞","🍝","🍚","🥔","🌽","🌾","🥦","🥬","🍅","🥕","🍎","🫐","🥑","🫒","💧","🍵","☕","🍷","🍺","🍰","🍬","🍫","🧂","🍯","🌶️","🧄","🧅","🍋","🍊","🍇","🥗","🍲","🥘","🍛","🍜","🍣","🍱","🧁","🫙","🌿"];
+
+const DIETS=[
+  {id:"usa",flag:"🇺🇸",name:"USA",region:"United States",
+   tiers:[{n:"Sweets & cakes",c:"#C0392B",side:"Rarely"},{n:"Red meat",c:"#9B2335",side:"Daily"},{n:"Dairy & eggs",c:"#E67E22",side:"Daily"},{n:"Fruit & veg",c:"#27AE60",side:"Some meals"},{n:"Bread & cereals",c:"#1A5C38",side:"Every meal"}],
+   goods:["Good source of protein","Dairy gives calcium","Some fruit & vegetables","Foods fortified with vitamins"],
+   bads:["High rates of heart disease","Too much sugar & fat","Very high in salt","Linked to obesity"],
+   kps:["Red meat and sweets are eaten very often — too much!","Dairy products like cheese and milk are consumed daily.","Bread and cereals form the base of most meals.","Fruit and vegetables are not eaten enough compared to other diets."]},
+  {id:"ita",flag:"🇮🇹",name:"Italy",region:"Italy (Crevalcore & Montegiorgio)",
+   tiers:[{n:"Wine & sweets",c:"#C0392B",side:"Occasionally"},{n:"Red meat",c:"#9B2335",side:"Rarely"},{n:"Fish & eggs",c:"#2471A3",side:"Few times/week"},{n:"Dairy & legumes",c:"#E67E22",side:"Moderate"},{n:"Olive oil",c:"#27AE60",side:"Daily"},{n:"Vegetables & fruit",c:"#1E8449",side:"Every meal"},{n:"Pasta & bread",c:"#1A5C38",side:"Every meal"}],
+   goods:["Low heart disease rates","Olive oil = healthy fats","Lots of fresh vegetables","Long healthy life expectancy"],
+   bads:["Pasta can be high in carbs","Some dishes quite salty","Wine culture — some alcohol","Fresh ingredients can cost more"],
+   kps:["Red meat is eaten rarely — only a few times per month.","Fish and eggs are consumed a few times per week.","Pasta, bread and vegetables are eaten at every meal.","Olive oil is the main cooking fat and is used daily.","Meals are eaten slowly with family — this is important for wellbeing."]},
+  {id:"fin",flag:"🇫🇮",name:"Finland",region:"Finland (East & West)",
+   tiers:[{n:"Pastries & sweets",c:"#C0392B",side:"Regularly"},{n:"Pork & sausage",c:"#9B2335",side:"Several/week"},{n:"Butter & cream",c:"#E67E22",side:"Daily"},{n:"Full-fat dairy",c:"#F39C12",side:"Daily"},{n:"Fish",c:"#2471A3",side:"Weekly"},{n:"Potatoes & veg",c:"#27AE60",side:"Daily"},{n:"Rye bread & oats",c:"#1A5C38",side:"Every meal"}],
+   goods:["Herring is rich in omega-3","Wild berries full of antioxidants","Rye bread high in fibre","Dairy gives strong bones"],
+   bads:["Very high heart disease in 1950s","Too much saturated fat","Lots of processed meat","High salt from preserved foods"],
+   kps:["Butter and full-fat dairy products are eaten every day.","Pork and sausage are eaten several times per week.","Rye bread is the daily bread — it is high in fibre.","Herring and fish are eaten weekly as a protein source.","Wild berries are picked in summer and are very nutritious."]},
+  {id:"gre",flag:"🇬🇷",name:"Greece",region:"Greece (Crete & Corfu)",
+   tiers:[{n:"Sweets",c:"#C0392B",side:"Rarely"},{n:"Red meat",c:"#9B2335",side:"Monthly"},{n:"Fish & seafood",c:"#2471A3",side:"Weekly"},{n:"Poultry & eggs",c:"#E67E22",side:"Weekly"},{n:"Olive oil",c:"#27AE60",side:"Every meal"},{n:"Salads & legumes",c:"#1E8449",side:"Every meal"},{n:"Bread & grains",c:"#1A5C38",side:"Every meal"}],
+   goods:["Lowest heart disease in the study!","Olive oil protects the heart","Huge amounts of fresh vegetables","Long relaxed mealtimes = less stress"],
+   bads:["Feta cheese is quite salty","Fresh fish can be expensive","White bread at every meal","Lifestyle hard to copy in cold countries"],
+   kps:["Red meat is consumed occasionally, only a few times per month.","Chicken, eggs, cheese and fish are eaten on a weekly basis.","Daily foods include bread, vegetables, fruits and olive oil.","It is important to drink water and have an active lifestyle.","Olive oil replaces butter — it is the most important fat in this diet."]},
+  {id:"yug",flag:"🇷🇸",name:"Yugoslavia",region:"Yugoslavia (Dalmatia & Slavonia)",
+   tiers:[{n:"Sweets & pastries",c:"#C0392B",side:"Occasionally"},{n:"Pork & lard",c:"#E67E22",side:"Few times/week"},{n:"Dairy & eggs",c:"#F39C12",side:"Daily"},{n:"Legumes",c:"#27AE60",side:"Often"},{n:"Potatoes & root veg",c:"#1E8449",side:"Daily"},{n:"Maize & dark bread",c:"#1A5C38",side:"Every meal"}],
+   goods:["Beans are a great cheap protein","Whole grains give good energy","Vegetables at most meals","Very affordable simple foods"],
+   bads:["Lard used for cooking = high fat","Preserved meats are very salty","Limited fresh food in winter","Heart disease varied a lot by region"],
+   kps:["Maize and dark bread are the foundation of every meal.","Beans and legumes are the main source of protein.","Pork and lard are used for cooking several times a week.","Potatoes and cabbage are eaten daily as vegetables.","The diet was very different between coastal and inland regions."]},
+  {id:"ned",flag:"🇳🇱",name:"Netherlands",region:"Netherlands (Zutphen)",
+   tiers:[{n:"Cakes & biscuits",c:"#C0392B",side:"Regularly"},{n:"Red meat",c:"#9B2335",side:"Daily"},{n:"Butter & fats",c:"#E67E22",side:"Daily"},{n:"Cheese & dairy",c:"#F39C12",side:"Daily"},{n:"Fish",c:"#2471A3",side:"Weekly"},{n:"Vegetables",c:"#27AE60",side:"Daily"},{n:"Bread & potatoes",c:"#1A5C38",side:"Every meal"}],
+   goods:["High dairy = strong bones","Herring rich in omega-3","Vegetables at most meals","Hearty bread high in fibre"],
+   bads:["Very high in saturated fat","High heart disease rates found","Lots of full-fat cheese","Too much full-fat dairy"],
+   kps:["Bread and potatoes form the base of every meal.","Cheese and full-fat dairy are consumed every day.","Meat and cold cuts are eaten daily as a main protein.","Herring is eaten weekly and is a good source of omega-3.","Butter is used for cooking and spreading — high in saturated fat."]},
+  {id:"jap",flag:"🇯🇵",name:"Japan",region:"Japan (Tanushimaru & Ushibuka)",
+   tiers:[{n:"Sweets & alcohol",c:"#C0392B",side:"Rarely"},{n:"Meat & eggs",c:"#E67E22",side:"Very little"},{n:"Fish & tofu",c:"#2471A3",side:"Daily"},{n:"Seaweed & veg",c:"#27AE60",side:"Every meal"},{n:"Rice & miso soup",c:"#1A5C38",side:"Every meal"}],
+   goods:["Lowest heart disease in the study!","Fish = omega-3 & lean protein","Green tea full of antioxidants","Small portions = healthy weight"],
+   bads:["Miso & soy sauce = high sodium","Low calcium (little dairy)","Very high carbohydrate from rice","Hard to follow outside Japan"],
+   kps:["Rice and miso soup are eaten at every meal.","Fish and tofu are the main proteins and are eaten daily.","Red meat and eggs are eaten very rarely.","Green tea is drunk throughout the day — rich in antioxidants.","Small portion sizes help keep weight healthy."]}
+];
+
+let sel=null,dragItem=null,dragSource=null,customEmoji="🍽️";
+const placedIds=new Set();
+
+function uid(e,l){return e+"::"+l;}
 
 function buildGrid(){
-  const g=document.getElementById("country-grid");
-  g.innerHTML="";
+  const g=document.getElementById("country-grid");g.innerHTML="";
   DIETS.forEach(d=>{
     const b=document.createElement("div");
     b.className="cbtn"+(sel?.id===d.id?" active":"");
     b.innerHTML=`<span class="cflag">${d.flag}</span><span class="cname">${d.name}</span>`;
-    b.onclick=()=>selectDiet(d);
-    g.appendChild(b);
+    b.onclick=()=>selectDiet(d);g.appendChild(b);
   });
 }
 
-function selectDiet(d){
-  sel=d;
-  document.getElementById("diet-name").value=d.name+" Diet";
-  document.getElementById("country-txt").value=d.region;
-  const bank=document.getElementById("ing-bank");
-  bank.innerHTML="";
-  d.ings.forEach(i=>bank.appendChild(makeChip(i.e,i.l,"bank")));
-  buildPyramid(d.tiers);
-  document.getElementById("good-list").innerHTML="";
-  document.getElementById("bad-list").innerHTML="";
-  d.goods.forEach(g=>addPt("good",g));
-  d.bads.forEach(b=>addPt("bad",b));
-  buildGrid();
+function buildMacroGroups(){
+  const wrap=document.getElementById("macro-groups");wrap.innerHTML="";
+  MACRO_GROUPS.forEach(grp=>{
+    const div=document.createElement("div");div.className="macro-group";
+    div.innerHTML=`<div class="macro-group-title"><i class="ti ${grp.icon}" aria-hidden="true"></i>${grp.label}</div>`;
+    const tiles=document.createElement("div");tiles.className="macro-tiles";
+    grp.tiles.forEach(t=>{
+      const id=uid(t.e,t.l);
+      const tile=makeTile(t.e,t.l);
+      if(placedIds.has(id)) tile.classList.add("in-pyramid");
+      tiles.appendChild(tile);
+    });
+    div.appendChild(tiles);
+    wrap.appendChild(div);
+  });
 }
 
-function makeChip(e,l,src){
-  const c=document.createElement("div");
-  c.className="ing-chip";
-  c.dataset.e=e; c.dataset.l=l;
-  c.draggable=true;
-  c.innerHTML=`<span class="chip-emoji">${e}</span><span class="chip-label">${l}</span><span class="chip-del" title="Remove" onclick="event.stopPropagation();this.parentElement.remove()">×</span>`;
-  c.addEventListener("dragstart",ev=>{dragItem={e,l};dragSource=src;c.classList.add("dragging");ev.dataTransfer.effectAllowed="move";});
-  c.addEventListener("dragend",()=>c.classList.remove("dragging"));
-  return c;
+function makeTile(e,l,isCustom){
+  const id=uid(e,l);
+  const tile=document.createElement("div");
+  tile.className="macro-tile";
+  tile.dataset.id=id;tile.dataset.e=e;tile.dataset.l=l;
+  tile.draggable=true;
+  tile.innerHTML=`<span class="tile-emoji">${e}</span><span class="tile-label">${l}</span>`;
+  tile.addEventListener("dragstart",ev=>{
+    if(tile.classList.contains("in-pyramid")) return ev.preventDefault();
+    dragItem={e,l,id};dragSource="bank";tile.classList.add("dragging");
+    ev.dataTransfer.effectAllowed="move";
+  });
+  tile.addEventListener("dragend",()=>tile.classList.remove("dragging"));
+  return tile;
 }
 
 function makeTierChip(e,l,tierEl){
-  const c=document.createElement("div");
-  c.className="tier-chip-item";
-  c.draggable=true;
-  c.innerHTML=`<span class="tc-emoji">${e}</span><span class="tc-label">${l}</span><span class="tc-rm" title="Remove">×</span>`;
-  c.querySelector(".tc-rm").onclick=ev=>{ev.stopPropagation();c.remove();restoreBank(e,l);};
-  c.addEventListener("dragstart",ev=>{dragItem={e,l,_from:tierEl};dragSource="tier";c.style.opacity=".3";ev.dataTransfer.effectAllowed="move";});
+  const id=uid(e,l);
+  const c=document.createElement("div");c.className="tier-chip";c.draggable=true;
+  c.innerHTML=`<span class="tc-e">${e}</span><span class="tc-l">${l}</span><span class="tc-rm">×</span>`;
+  c.querySelector(".tc-rm").onclick=ev=>{
+    ev.stopPropagation();c.remove();
+    placedIds.delete(id);
+    refreshBankState();
+    const g=tierEl.querySelector(".tier-ghost");if(g) g.style.display="";
+  };
+  c.addEventListener("dragstart",ev=>{dragItem={e,l,id,_from:tierEl};dragSource="tier";c.style.opacity=".3";ev.dataTransfer.effectAllowed="move";});
   c.addEventListener("dragend",()=>c.style.opacity="1");
   return c;
 }
 
-function restoreBank(e,l){
-  const bank=document.getElementById("ing-bank");
-  if(![...bank.querySelectorAll(".ing-chip")].some(c=>c.dataset.e===e&&c.dataset.l===l))
-    bank.appendChild(makeChip(e,l,"bank"));
+function refreshBankState(){
+  document.querySelectorAll(".macro-tile").forEach(t=>{
+    if(placedIds.has(t.dataset.id)) t.classList.add("in-pyramid");
+    else t.classList.remove("in-pyramid");
+  });
 }
 
 function setupTierDrop(el){
@@ -284,260 +335,186 @@ function setupTierDrop(el){
   el.addEventListener("drop",ev=>{
     ev.preventDefault();el.classList.remove("over");
     if(!dragItem) return;
-    if([...el.querySelectorAll(".tier-chip-item")].some(c=>c.querySelector(".tc-emoji").textContent===dragItem.e)) return;
-    if(dragSource==="bank"){
-      const bc=[...document.getElementById("ing-bank").querySelectorAll(".ing-chip")].find(c=>c.dataset.e===dragItem.e&&c.dataset.l===dragItem.l);
-      if(bc) bc.remove();
-    } else if(dragSource==="tier"&&dragItem._from){
-      const old=[...dragItem._from.querySelectorAll(".tier-chip-item")].find(c=>c.querySelector(".tc-emoji").textContent===dragItem.e);
+    if(placedIds.has(dragItem.id)) return;
+    if(dragSource==="tier"&&dragItem._from){
+      const old=[...dragItem._from.querySelectorAll(".tier-chip")].find(c=>c.querySelector(".tc-e").textContent===dragItem.e);
       if(old) old.remove();
+      const pg=dragItem._from.querySelector(".tier-ghost");
+      if(!dragItem._from.querySelectorAll(".tier-chip").length&&pg) pg.style.display="";
     }
+    placedIds.add(dragItem.id);
     const ghost=el.querySelector(".tier-ghost");
-    el.insertBefore(makeTierChip(dragItem.e,dragItem.l,el),ghost||el.querySelector(".tier-name-tag"));
-    const g=el.querySelector(".tier-ghost");
-    if(g) g.style.display="none";
-    dragItem=null;
-  });
-}
-
-function setupBankDrop(){
-  const bank=document.getElementById("ing-bank");
-  bank.addEventListener("dragover",ev=>{ev.preventDefault();});
-  bank.addEventListener("drop",ev=>{
-    ev.preventDefault();
-    if(!dragItem||dragSource!=="tier") return;
-    if(dragItem._from){
-      const old=[...dragItem._from.querySelectorAll(".tier-chip-item")].find(c=>c.querySelector(".tc-emoji").textContent===dragItem.e);
-      if(old) old.remove();
-    }
-    restoreBank(dragItem.e,dragItem.l);
+    if(ghost) ghost.style.display="none";
+    el.insertBefore(makeTierChip(dragItem.e,dragItem.l,el),el.querySelector(".tier-name-tag"));
+    refreshBankState();
     dragItem=null;
   });
 }
 
 function buildPyramid(tiers){
-  const outer=document.getElementById("pyramid-outer");
-  outer.innerHTML="";
+  const outer=document.getElementById("pyramid-outer");outer.innerHTML="";
   const n=tiers.length;
   tiers.forEach((t,i)=>{
-    const pct=(i+1)/n;
-    const w=Math.round(34+64*pct)+"%";
-    const row=document.createElement("div");
-    row.className="tier-row";
-    row.style.justifyContent="center";
-    const sL=document.createElement("div");
-    sL.className="tier-side left";
-    sL.textContent=i===0?"Rarely":"";
-    const drop=document.createElement("div");
-    drop.className="tier-drop";
-    drop.style.cssText=`background:${t.c};width:${w};`;
-    drop.dataset.tn=t.n;
-    const ghost=document.createElement("span");
-    ghost.className="tier-ghost";
-    ghost.textContent="Drop here";
-    drop.appendChild(ghost);
-    const tag=document.createElement("span");
-    tag.className="tier-name-tag";
-    tag.textContent=t.n;
-    drop.appendChild(tag);
+    const pct=(i+1)/n;const w=Math.round(32+66*pct)+"%";
+    const row=document.createElement("div");row.className="tier-row";row.style.justifyContent="center";
+    const sL=document.createElement("div");sL.className="tier-side left";sL.textContent=i===0?"Rarely":"";
+    const drop=document.createElement("div");drop.className="tier-drop";
+    drop.style.cssText=`background:${t.c};width:${w};`;drop.dataset.tn=t.n;
+    const ghost=document.createElement("span");ghost.className="tier-ghost";ghost.textContent="Drop here";drop.appendChild(ghost);
+    const tag=document.createElement("span");tag.className="tier-name-tag";tag.textContent=t.n;drop.appendChild(tag);
     setupTierDrop(drop);
-    const sR=document.createElement("div");
-    sR.className="tier-side right";
-    sR.textContent=i===n-1?"Every meal":t.side;
-    row.append(sL,drop,sR);
-    outer.appendChild(row);
+    const sR=document.createElement("div");sR.className="tier-side right";sR.textContent=i===n-1?"Every meal":t.side;
+    row.append(sL,drop,sR);outer.appendChild(row);
   });
-  setupBankDrop();
+  const outer2=document.getElementById("pyramid-outer");
+  outer2.addEventListener("dragover",ev=>ev.preventDefault());
+}
+
+function selectDiet(d){
+  sel=d;placedIds.clear();
+  document.getElementById("diet-name").value=d.name+" Diet";
+  document.getElementById("country-txt").value=d.region;
+  buildPyramid(d.tiers);
+  buildMacroGroups();
+  document.getElementById("good-list").innerHTML="";
+  document.getElementById("bad-list").innerHTML="";
+  d.goods.forEach(g=>addPt("good",g));
+  d.bads.forEach(b=>addPt("bad",b));
+  document.getElementById("kp-list").innerHTML="";
+  d.kps.forEach(k=>addKP(k));
+  buildGrid();
 }
 
 function addPt(type,val){
   const list=document.getElementById(type+"-list");
-  const row=document.createElement("div");
-  row.className="pt-row";
-  const dot=document.createElement("div");
-  dot.className="pdot "+(type==="good"?"g":"b");
-  const inp=document.createElement("input");
-  inp.type="text";
+  const row=document.createElement("div");row.className="pt-row";
+  const dot=document.createElement("div");dot.className="pdot "+(type==="good"?"g":"b");
+  const inp=document.createElement("input");inp.type="text";
   inp.placeholder=type==="good"?"Write a good point...":"Write a problem...";
   if(val) inp.value=val;
-  const rm=document.createElement("span");
-  rm.className="pt-rm"; rm.textContent="×"; rm.onclick=()=>row.remove();
-  row.append(dot,inp,rm);
-  list.appendChild(row);
-  if(!val) inp.focus();
+  const rm=document.createElement("span");rm.className="pt-rm";rm.textContent="×";rm.onclick=()=>row.remove();
+  row.append(dot,inp,rm);list.appendChild(row);if(!val) inp.focus();
 }
 
-function showEmojiPicker(){
-  if(pickerOpen){closeEmojiPicker();return;}
-  pickerOpen=true;
-  const portal=document.getElementById("emoji-portal");
-  portal.style.display="block";
-  portal.innerHTML="";
-  const overlay=document.createElement("div");
-  overlay.className="emoji-overlay";
-  overlay.onclick=closeEmojiPicker;
-  const picker=document.createElement("div");
-  picker.className="emoji-picker";
-  FOOD_EMOJIS.forEach(em=>{
-    const s=document.createElement("span");
-    s.className="ep-item"; s.textContent=em;
-    s.onclick=e=>{e.stopPropagation();pickedEmoji=em;showChosenEmoji();closeEmojiPicker();};
-    picker.appendChild(s);
-  });
-  document.body.appendChild(overlay);
-  portal.appendChild(picker);
+function addKP(val){
+  const list=document.getElementById("kp-list");
+  const n=list.querySelectorAll(".kp-row-item").length+1;
+  const row=document.createElement("div");row.className="kp-row-item";
+  const bul=document.createElement("div");bul.className="kp-bullet";bul.innerHTML=`<span>${n}</span>`;
+  const ta=document.createElement("textarea");
+  ta.placeholder="Write a key point, e.g. Red meat is consumed occasionally.";ta.rows=2;
+  if(val) ta.value=val;
+  ta.addEventListener("input",()=>{ta.style.height="auto";ta.style.height=ta.scrollHeight+"px";});
+  const rm=document.createElement("span");rm.className="kp-rm";rm.textContent="×";
+  rm.onclick=()=>{row.remove();renumberKP();};
+  row.append(bul,ta,rm);list.appendChild(row);
+  setTimeout(()=>{ta.style.height="auto";ta.style.height=ta.scrollHeight+"px";},10);
+  if(!val) ta.focus();
 }
+function renumberKP(){document.querySelectorAll(".kp-row-item").forEach((r,i)=>{const b=r.querySelector(".kp-bullet span");if(b)b.textContent=i+1;});}
 
-function closeEmojiPicker(){
-  pickerOpen=false;
-  const portal=document.getElementById("emoji-portal");
-  portal.style.display="none";
-  portal.innerHTML="";
-  document.querySelectorAll(".emoji-overlay").forEach(o=>o.remove());
+const emojiPicker=document.getElementById("emoji-picker");
+const customEmojiBtn=document.getElementById("custom-emoji-btn");
+let pickerOpen=false;
+customEmojiBtn.onclick=()=>{
+  pickerOpen=!pickerOpen;
+  if(pickerOpen){
+    emojiPicker.innerHTML="";
+    emojiPicker.style.display="flex";
+    EXTRA_EMOJIS.forEach(em=>{
+      const s=document.createElement("span");s.style.cssText="font-size:22px;cursor:pointer;padding:3px 5px;border-radius:5px;";s.textContent=em;
+      s.onmouseover=()=>s.style.background="var(--color-background-secondary)";
+      s.onmouseout=()=>s.style.background="";
+      s.onclick=e=>{e.stopPropagation();customEmoji=em;customEmojiBtn.textContent=em;emojiPicker.style.display="none";pickerOpen=false;};
+      emojiPicker.appendChild(s);
+    });
+    setTimeout(()=>document.addEventListener("click",function h(e){if(!emojiPicker.contains(e.target)&&e.target!==customEmojiBtn){emojiPicker.style.display="none";pickerOpen=false;document.removeEventListener("click",h);}},),10);
+  } else {emojiPicker.style.display="none";}
+};
+
+function addCustomTile(){
+  const inp=document.getElementById("custom-ing");const l=inp.value.trim();if(!l) return;
+  const e=customEmoji;
+  const lastGrp=document.querySelector("#macro-groups .macro-group:last-child .macro-tiles");
+  if(lastGrp){
+    const t=makeTile(e,l,true);lastGrp.appendChild(t);
+  } else {
+    const wrap=document.getElementById("macro-groups");
+    const div=document.createElement("div");div.className="macro-group";
+    div.innerHTML=`<div class="macro-group-title">Custom</div>`;
+    const tiles=document.createElement("div");tiles.className="macro-tiles";
+    tiles.appendChild(makeTile(e,l,true));div.appendChild(tiles);wrap.appendChild(div);
+  }
+  inp.value="";customEmoji="🍽️";customEmojiBtn.textContent="🍽️";
 }
+document.getElementById("custom-ing").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();addCustomTile();}});
 
-function showChosenEmoji(){
-  const el=document.getElementById("chosen-emoji");
-  el.textContent=pickedEmoji+" ";
-  el.style.display="inline-block";
-}
-
-function addCustomChip(){
-  const txtEl=document.getElementById("ing-text");
-  const label=txtEl.value.trim();
-  if(!label) return;
-  const bank=document.getElementById("ing-bank");
-  bank.appendChild(makeChip(pickedEmoji,label,"bank"));
-  txtEl.value="";
-  pickedEmoji="🍽️";
-  document.getElementById("chosen-emoji").style.display="none";
-}
-
-document.getElementById("ing-text").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();addCustomChip();}});
-
-function hexToRgb(hex){return[parseInt(hex.slice(1,3),16),parseInt(hex.slice(3,5),16),parseInt(hex.slice(5,7),16)];}
+function hexToRgb(h){return[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];}
 
 function downloadPDF(){
-  const btn=document.getElementById("dl-btn");
-  btn.disabled=true;
-  btn.innerHTML='<i class="ti ti-loader" style="font-size:18px;"></i> Building PDF...';
+  const btn=document.getElementById("dl-btn");btn.disabled=true;btn.innerHTML='<i class="ti ti-loader" style="font-size:18px;"></i> Building PDF...';
   try{
     const {jsPDF}=window.jspdf;
     const doc=new jsPDF({orientation:"portrait",unit:"mm",format:"a4"});
-    const pw=210,ph=297,mg=14,cw=210-mg*2;
-    let y=mg;
+    const pw=210,ph=297,mg=14,cw=pw-mg*2;let y=mg;
     const dname=document.getElementById("diet-name").value.trim()||"My Food Culture";
     const country=document.getElementById("country-txt").value.trim()||"";
     const sname=document.getElementById("student-name").value.trim();
-    const flag=sel?sel.flag:"";
-
-    doc.setFillColor(26,92,56);
-    doc.roundedRect(mg,y,cw,sname?26:22,3,3,"F");
-    doc.setTextColor(232,168,46);
-    doc.setFontSize(17);doc.setFont("helvetica","bold");
-    doc.text(dname,pw/2,y+9,{align:"center"});
-    doc.setFontSize(10);doc.setFont("helvetica","normal");doc.setTextColor(168,213,181);
-    doc.text(country,pw/2,y+16,{align:"center"});
+    doc.setFillColor(26,92,56);doc.roundedRect(mg,y,cw,sname?26:22,3,3,"F");
+    doc.setTextColor(232,168,46);doc.setFontSize(17);doc.setFont("helvetica","bold");doc.text(dname,pw/2,y+9,{align:"center"});
+    doc.setFontSize(10);doc.setFont("helvetica","normal");doc.setTextColor(168,213,181);doc.text(country,pw/2,y+16,{align:"center"});
     if(sname){doc.setTextColor(255,255,255);doc.text("Student: "+sname,pw/2,y+22,{align:"center"});}
     y+=(sname?30:26);
-
-    const bankItems=[...document.querySelectorAll("#ing-bank .ing-chip")].map(c=>c.dataset.e+" "+c.dataset.l);
     const tierDrops=[...document.querySelectorAll(".tier-drop")];
-    const tierData=tierDrops.map(td=>({
-      name:td.dataset.tn||"",
-      color:td.style.background||"#888",
-      chips:[...td.querySelectorAll(".tier-chip-item")].map(c=>c.querySelector(".tc-emoji").textContent+" "+c.querySelector(".tc-label").textContent)
-    }));
-
-    doc.setTextColor(26,92,56);doc.setFont("helvetica","bold");doc.setFontSize(12);
-    doc.text("Food pyramid",pw/2,y+2,{align:"center"});
-    doc.setFontSize(8);doc.setFont("helvetica","italic");doc.setTextColor(130,130,130);
-    doc.text("Top = eat rarely     Bottom = eat every meal",pw/2,y+7,{align:"center"});
-    y+=11;
-
-    const n=tierData.length;
-    const maxTW=cw*0.86,minTW=cw*0.25,tierH=11;
+    const tierData=tierDrops.map(td=>({name:td.dataset.tn||"",color:td.style.background||"#888",chips:[...td.querySelectorAll(".tier-chip")].map(c=>c.querySelector(".tc-e").textContent+" "+c.querySelector(".tc-l").textContent)}));
+    const n=tierData.length;const maxTW=cw*.86,minTW=cw*.24,tH=11;
+    doc.setTextColor(26,92,56);doc.setFont("helvetica","bold");doc.setFontSize(12);doc.text("Food pyramid",pw/2,y+2,{align:"center"});
+    doc.setFontSize(8);doc.setFont("helvetica","italic");doc.setTextColor(130,130,130);doc.text("Top = eat rarely     Bottom = eat every meal",pw/2,y+7,{align:"center"});y+=11;
     tierData.forEach((t,i)=>{
-      const pct=(i+1)/n;
-      const tw=minTW+(maxTW-minTW)*pct;
-      const tx=mg+(cw-tw)/2;
-      const rgb=hexToRgb(t.color);
-      doc.setFillColor(rgb[0],rgb[1],rgb[2]);
-      doc.roundedRect(tx,y,tw,tierH,2,2,"F");
+      const pct=(i+1)/n;const tw=minTW+(maxTW-minTW)*pct;const tx=mg+(cw-tw)/2;
+      const rgb=hexToRgb(t.color);doc.setFillColor(rgb[0],rgb[1],rgb[2]);doc.roundedRect(tx,y,tw,tH,2,2,"F");
       doc.setTextColor(255,255,255);doc.setFont("helvetica","bold");doc.setFontSize(7.5);
-      const label=t.chips.length>0?t.name+": "+t.chips.join("  "):t.name+" — (empty)";
-      const lines=doc.splitTextToSize(label,tw-6);
-      doc.text(lines[0],tx+tw/2,y+7,{align:"center"});
-      y+=tierH+2;
-    });
-    y+=4;
-
+      const label=t.chips.length?t.name+": "+t.chips.join("  "):t.name+" — (empty)";
+      doc.text(doc.splitTextToSize(label,tw-6)[0],tx+tw/2,y+7,{align:"center"});y+=tH+2;
+    });y+=4;
     const goods=[...document.querySelectorAll("#good-list input")].map(i=>i.value).filter(Boolean);
     const bads=[...document.querySelectorAll("#bad-list input")].map(i=>i.value).filter(Boolean);
-    const colW=(cw-6)/2;
-
-    doc.setFillColor(26,127,75);
-    doc.roundedRect(mg,y,colW,7,2,2,"F");
-    doc.setTextColor(255,255,255);doc.setFont("helvetica","bold");doc.setFontSize(9);
-    doc.text("Good for health",mg+colW/2,y+5,{align:"center"});
-    doc.setFillColor(192,57,43);
-    doc.roundedRect(mg+colW+6,y,colW,7,2,2,"F");
-    doc.text("Watch out for",mg+colW+6+colW/2,y+5,{align:"center"});
-    y+=10;
-
-    const ptH=6.5;
+    const colW=(cw-6)/2;const ptH=6.5;
+    doc.setFillColor(26,127,75);doc.roundedRect(mg,y,colW,7,2,2,"F");doc.setTextColor(255,255,255);doc.setFont("helvetica","bold");doc.setFontSize(9);doc.text("Good for health",mg+colW/2,y+5,{align:"center"});
+    doc.setFillColor(192,57,43);doc.roundedRect(mg+colW+6,y,colW,7,2,2,"F");doc.text("Watch out for",mg+colW+6+colW/2,y+5,{align:"center"});y+=10;
     [...Array(Math.max(goods.length,bads.length,1))].forEach((_,i)=>{
-      if(goods[i]){
-        doc.setFillColor(240,250,244);doc.rect(mg,y+i*ptH,colW,ptH-0.5,"F");
-        doc.setTextColor(26,76,42);doc.setFont("helvetica","normal");doc.setFontSize(8);
-        const lines=doc.splitTextToSize(goods[i],colW-4);
-        doc.text(lines[0],mg+2,y+i*ptH+4.5);
-      }
-      if(bads[i]){
-        doc.setFillColor(254,235,235);doc.rect(mg+colW+6,y+i*ptH,colW,ptH-0.5,"F");
-        doc.setTextColor(120,20,20);doc.setFont("helvetica","normal");doc.setFontSize(8);
-        const lines=doc.splitTextToSize(bads[i],colW-4);
-        doc.text(lines[0],mg+colW+8,y+i*ptH+4.5);
-      }
+      if(goods[i]){doc.setFillColor(240,250,244);doc.rect(mg,y+i*ptH,colW,ptH-.5,"F");doc.setTextColor(26,76,42);doc.setFont("helvetica","normal");doc.setFontSize(8);doc.text(doc.splitTextToSize(goods[i],colW-4)[0],mg+2,y+i*ptH+4.5);}
+      if(bads[i]){doc.setFillColor(254,235,235);doc.rect(mg+colW+6,y+i*ptH,colW,ptH-.5,"F");doc.setTextColor(120,20,20);doc.setFont("helvetica","normal");doc.setFontSize(8);doc.text(doc.splitTextToSize(bads[i],colW-4)[0],mg+colW+8,y+i*ptH+4.5);}
     });
     y+=Math.max(goods.length,bads.length,1)*ptH+8;
-
-    if(bankItems.length){
-      doc.setFillColor(241,239,232);
-      doc.roundedRect(mg,y,cw,7,2,2,"F");
-      doc.setTextColor(110,105,95);doc.setFont("helvetica","italic");doc.setFontSize(7.5);
-      const lines=doc.splitTextToSize("Not placed in pyramid: "+bankItems.join(", "),cw-4);
-      doc.text(lines[0],pw/2,y+5,{align:"center"});
-      y+=10;
+    const kps=[...document.querySelectorAll("#kp-list textarea")].map(t=>t.value.trim()).filter(Boolean);
+    if(kps.length){
+      if(y>220){doc.addPage();y=mg;}
+      doc.setFillColor(26,92,56);doc.roundedRect(mg,y,cw,8,2,2,"F");doc.setTextColor(255,255,255);doc.setFont("helvetica","bold");doc.setFontSize(10);doc.text("Key points",pw/2,y+5.5,{align:"center"});y+=12;
+      kps.forEach((kp,i)=>{
+        doc.setFillColor(26,92,56);doc.circle(mg+3.5,y+3.5,3.5,"F");doc.setTextColor(255,255,255);doc.setFont("helvetica","bold");doc.setFontSize(8);doc.text(String(i+1),mg+3.5,y+4.5,{align:"center"});
+        doc.setTextColor(30,30,30);doc.setFont("helvetica","normal");doc.setFontSize(9);
+        const lines=doc.splitTextToSize(kp,cw-12);lines.forEach((ln,li)=>doc.text(ln,mg+10,y+4+li*5));
+        y+=Math.max(8,lines.length*5)+3;if(y>270&&i<kps.length-1){doc.addPage();y=mg;}
+      });
     }
-
-    doc.setFillColor(26,92,56);
-    doc.rect(mg,ph-13,cw,8,"F");
-    doc.setTextColor(168,213,181);doc.setFont("helvetica","normal");doc.setFontSize(7.5);
-    doc.text("The Seven Countries Study (Ancel Keys, 1950s)  |  World Diets & Food Cultures",pw/2,ph-8,{align:"center"});
-
-    const fn=(dname||"diet").replace(/[^a-z0-9]/gi,"_").toLowerCase()+"_pyramid.pdf";
-    doc.save(fn);
-    btn.disabled=false;
-    btn.innerHTML='<i class="ti ti-check" style="font-size:18px;"></i> Downloaded! Download again?';
+    doc.setFillColor(26,92,56);doc.rect(mg,ph-13,cw,8,"F");doc.setTextColor(168,213,181);doc.setFont("helvetica","normal");doc.setFontSize(7.5);doc.text("The Seven Countries Study (Ancel Keys, 1950s)  |  World Diets & Food Cultures",pw/2,ph-8,{align:"center"});
+    doc.save((dname||"diet").replace(/[^a-z0-9]/gi,"_").toLowerCase()+"_pyramid.pdf");
+    btn.disabled=false;btn.innerHTML='<i class="ti ti-check" style="font-size:18px;"></i> Downloaded!';
     setTimeout(()=>{btn.innerHTML='<i class="ti ti-download" style="font-size:18px;"></i> Download as PDF';},4000);
-  }catch(err){
-    btn.disabled=false;
-    btn.innerHTML='<i class="ti ti-download" style="font-size:18px;"></i> Download as PDF';
-    alert("PDF error: "+err.message);
-  }
+  }catch(err){btn.disabled=false;btn.innerHTML='<i class="ti ti-download" style="font-size:18px;"></i> Download as PDF';alert("PDF error: "+err.message);}
 }
 
 function resetAll(){
-  sel=null;pickedEmoji="🍽️";
-  ["diet-name","country-txt","student-name","ing-text"].forEach(id=>document.getElementById(id).value="");
-  ["ing-bank","pyramid-outer","good-list","bad-list"].forEach(id=>document.getElementById(id).innerHTML="");
-  document.getElementById("chosen-emoji").style.display="none";
-  const btn=document.getElementById("dl-btn");
-  btn.disabled=false;
-  btn.innerHTML='<i class="ti ti-download" style="font-size:18px;"></i> Download as PDF';
+  sel=null;placedIds.clear();
+  ["diet-name","country-txt","student-name","custom-ing"].forEach(id=>document.getElementById(id).value="");
+  ["pyramid-outer","good-list","bad-list","kp-list","macro-groups"].forEach(id=>document.getElementById(id).innerHTML="");
+  customEmoji="🍽️";customEmojiBtn.textContent="🍽️";
+  document.getElementById("dl-btn").innerHTML='<i class="ti ti-download" style="font-size:18px;"></i> Download as PDF';
+  document.getElementById("dl-btn").disabled=false;
   buildGrid();
 }
 
 buildGrid();
+buildMacroGroups();
 </script>
